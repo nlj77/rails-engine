@@ -25,6 +25,17 @@ describe "Merchants API" do
     end
 
     it " can return a particular merchant" do
+        id = create(:merchant).id
+
+        get "/api/v1/merchants/#{id}"
+
+        merchant = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response).to be_successful
+
+        expect(merchant[:data]).to have_key(:id)
+        expect(merchant[:data][:id]).to eq("#{id}")
+
 
     end
 end
