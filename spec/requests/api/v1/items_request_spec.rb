@@ -84,4 +84,15 @@ RSpec.describe "Items API" do
 
         expect(response).to_not be_successful
     end
+
+    it "can find an item's merchant " do
+        merchant_1 = create(:merchant)
+        item_1 = create(:item, merchant_id: merchant_1.id)
+
+        get "/api/v1/items/#{item_1.id}/merchant"
+
+        expect(response).to be_successful
+
+
+    end
 end
