@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Merchants API" do
+RSpec.describe "Merchants API" do
     it "sends a list of merchants" do
         create_list(:merchant, 3)
 
@@ -35,7 +35,24 @@ describe "Merchants API" do
 
         expect(merchant[:data]).to have_key(:id)
         expect(merchant[:data][:id]).to eq("#{id}")
+    end
 
+    it "can return a particular merchant's items" do 
+        merchant = create(:merchant)
+        snack_food = ['Hot Dog', 'Ice Cream Cone', 'Popcorn', 'Churro', 'Nachos']
+        5.times do
+            Item.create(name: "Carnival #{snack_food.sample}", description: 'A tasty treat', unit_price: rand(2..10).to_f, merchant_id: merchant.id)
+        end
 
+        get "/api/v1/merchants/#{merchant.id}/items"
+        merchant_items = JSON.parse(response.body, symbolize_names: true)
+        
+        expect(response).to be_successful
+
+        expect(merchant_items[:data].count).to eq(5)
+        expect(merchant_items[:data].first).to have_key(:id)
+        expect(merchant_items[:data].first).to have_key(:type)
+        expect(merchant_items[:data].first).to have_key(:attributes)
+        expect(merchant_items[:data].first[:attributes][:description]).to eq('A tasty treat')
     end
 end
