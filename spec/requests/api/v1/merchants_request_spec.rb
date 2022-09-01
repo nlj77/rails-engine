@@ -59,18 +59,22 @@ RSpec.describe "Merchants API" do
     #Part Two End Points
 
     it "can search for a merchant given a particular query parameter" do 
-        moogle = Merchant.new(name: "Moogle")
-        attribute = "name"
-        query_parameter = "moo"
+        moogle = Merchant.create(name: "Moogle")
+        # attribute = "name"
+        # query_parameter = "moo"
     
-        get "/api/v1/merchants/find?#{attribute}=#{query}"
-    
+        get "/api/v1/merchants/find?name=moo"
+        # merchant = JSON.parse(response.body, symbolize_names: true)
         expect(response).to be_successful
         expect(response.content_type).to eq("application/json")
-    
+
         merchant = JSON.parse(response.body, symbolize_names: true)
-    
         expect(merchant[:data][:type]).to eq('merchant')
         expect(merchant[:data][:attributes][:name]).to eq("Moogle")
+    end
+
+    it " can return a 404 if given an invalid query parameter" do
+        get "/api/v1/merchants/find?name=kek"
+        expect(response).to_not be_successful
     end
 end

@@ -92,7 +92,7 @@ RSpec.describe "Items API" do
         get "/api/v1/items/#{item_1.id}/merchant"
 
         expect(response).to be_successful
-
-
     end
+
+    
 end
