@@ -55,4 +55,22 @@ RSpec.describe "Merchants API" do
         expect(merchant_items[:data].first).to have_key(:attributes)
         expect(merchant_items[:data].first[:attributes][:description]).to eq('A tasty treat')
     end
+
+    #Part Two End Points
+
+    it "can search for a merchant given a particular query parameter" do 
+        moogle = Merchant.new(name: "Moogle")
+        attribute = "name"
+        query_parameter = "moo"
+    
+        get "/api/v1/merchants/find?#{attribute}=#{query}"
+    
+        expect(response).to be_successful
+        expect(response.content_type).to eq("application/json")
+    
+        merchant = JSON.parse(response.body, symbolize_names: true)
+    
+        expect(merchant[:data][:type]).to eq('merchant')
+        expect(merchant[:data][:attributes][:name]).to eq("Moogle")
+    end
 end
