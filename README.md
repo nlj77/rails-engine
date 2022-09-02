@@ -16,9 +16,9 @@ Requires Rails 5.7.2 and up/, Ruby 2.7.4 and up, Postgres .18 and up. Gems used 
 
 ```
 
-## Author
+### Author
 
-
-ex. Nick Jones
-ex. [@nlj77](https://github.com/nlj77)
+```
+ Nick Jones
+ [@nlj77](https://github.com/nlj77)
 
