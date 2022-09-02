@@ -28,6 +28,15 @@ class Api::V1::ItemsController < ApplicationController
         end
     end
 
+    def find_all
+        item_results = Item.item_search_all(params[:name])
+        if item_results.present?
+            render json: ItemSerializer.new(item_results), status: 200
+        else  
+            render json: {data: []}, status: 404
+        end
+    end
+
     private
 
     def item_params

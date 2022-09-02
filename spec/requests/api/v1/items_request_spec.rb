@@ -58,6 +58,10 @@ RSpec.describe "Items API" do
         delete "/api/v1/items/#{item.id}"
         expect(response).to be_successful
         expect(response.content_type).to eq("application/json")
+
+        item_params_2 = { description: 'You will regret this', unit_price: 10.50, merchant_id: merchant_id }
+        post '/api/v1/items', params: JSON.generate(item_params_2), headers: headers
+        expect(response).to_not be_successful
     end
 
     it 'can update an item' do
@@ -92,6 +96,31 @@ RSpec.describe "Items API" do
         get "/api/v1/items/#{item_1.id}/merchant"
 
         expect(response).to be_successful
+    end
+
+    it "can find all items that match a search term" do
+        merchant_1 = create(:merchant)
+        # item_1 = Item.new(name: "Burger", description: "A beef patty served on a bun", unit_price: 10.50, merchant_id: merchant_1.id)
+        # item_2 = Item.new(name: "Cheeseburger", description: "A beef patty served on a bun with cheese", unit_price: 11.50, merchant_id: merchant_1.id)
+        # item_3 = Item.new(name: "Beef and Broccoli", description: "A stir fry of beef and broccoli", unit_price: 12.50, merchant_id: merchant_1.id)
+        # item_4 = Item.new(name: "Chicken Wings", description: "Fried chicken wings with sauce", unit_price: 9.50, merchant_id: merchant_1.id)
+        item_1 = merchant_1.items.create(name: "Burger", description: "A beef patty served on a bun", unit_price: 10.50)
+        item_2 = merchant_1.items.create(name: "Cheeseburger", description: "A beef patty served on a bun with cheese", unit_price: 11.50)
+        item_3 = merchant_1.items.create(name: "Beef and Broccoli", description: "A stir fry of beef and broccoli", unit_price: 12.50)
+        item_4 = merchant_1.items.create(name: "Chicken Wings", description: "Fried chicken wings with sauce", unit_price: 9.50)
+
+        # attribute = "description"
+        # query_parameter = "beef"
+
+        get "/api/v1/items/find_all?name=burger"
+        expect(response).to be_successful
+        expect(response.content_type).to eq("application/json")
+
+        results = JSON.parse(response.body, symbolize_names: true)
+        expect(results[:data].count).to eq(2)
+
+        get "/api/v1/items/find_all?name=Texas"
+        expect(response).to_not be_successful
 
 
     end
