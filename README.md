@@ -1,24 +1,24 @@
-# README
+# Rails-Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a solo project for Turing's Module 3 of the Backend Engineering program that explores the creation of multiple API endpoints. 
 
-Things you may want to cover:
+## Description
+This project demonstrates my ability to expose an API, use serializers to format JSON responses, test API exposure, and use SQL and AR to gather data. 
 
-* Ruby version
+## Getting Started
 
-* System dependencies
+### Dependencies
 
-* Configuration
+Requires Rails 5.7.2 and up/, Ruby 2.7.4 and up, Postgres .18 and up. Gems used include; factory_bot_rails, faker, and shoulda-matchers. 
 
-* Database creation
+### Installing
 
-* Database initialization
 
-* How to run the test suite
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Author
 
-* Deployment instructions
 
-* ...
+ex. Nick Jones
+ex. [@nlj77](https://github.com/nlj77)
+
