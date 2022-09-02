@@ -58,6 +58,10 @@ RSpec.describe "Items API" do
         delete "/api/v1/items/#{item.id}"
         expect(response).to be_successful
         expect(response.content_type).to eq("application/json")
+
+        item_params_2 = { description: 'You will regret this', unit_price: 10.50, merchant_id: merchant_id }
+        post '/api/v1/items', params: JSON.generate(item_params_2), headers: headers
+        expect(response).to_not be_successful
     end
 
     it 'can update an item' do
@@ -114,6 +118,10 @@ RSpec.describe "Items API" do
 
         results = JSON.parse(response.body, symbolize_names: true)
         expect(results[:data].count).to eq(2)
+
+        get "/api/v1/items/find_all?name=Texas"
+        expect(response).to_not be_successful
+
 
     end
 end
