@@ -11,14 +11,10 @@ This project demonstrates my ability to expose an API, use serializers to format
 
 Requires Rails 5.7.2 and up/, Ruby 2.7.4 and up, Postgres .18 and up. Gems used include; factory_bot_rails, faker, and shoulda-matchers. 
 
-### Installing
 
-
-```
 
 ### Author
 
-```
  Nick Jones
  [@nlj77](https://github.com/nlj77)
 
